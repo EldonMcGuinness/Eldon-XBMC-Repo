@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="repository.eldon-xbmc-repo" name="Eldon's XBMC OUYA Addons" version="1.0.0" provider-name="Eldon McGuinness">
-	<extension point="xbmc.addon.repository" name="Eldon's XBMC OUYA Addons">
-		<info compressed="false">https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/master/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/tree/master/repository.eldon-xbmc-repo</datadir>
+	<extension point="xbmc.addon.repository"
+			   name="Eldon's XBMC OUYA Addons">
+		<info compressed="false">https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/stable/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/stable/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/stable</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>Eldon's XBMC OUYA Addons</summary>
-		<description>A Repo of handy OUYA and Android specific plugins</description>
-		<disclaimer></disclaimer>
 		<platform>all</platform>
+		<summary lang="en">Eldon's XBMC OUYA Addons</summary>
+		<description lang="en">Handy OUYA Addons</description>
 	</extension>
 </addon>
