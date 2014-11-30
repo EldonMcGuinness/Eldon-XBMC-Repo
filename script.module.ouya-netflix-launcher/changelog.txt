@@ -1,7 +1,5 @@
-
 1.1.0
 - Updates to work with official add-on API
-
 
 1.0.0
 - Initial release
