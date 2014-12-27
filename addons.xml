@@ -26,7 +26,7 @@
 	</extension>
 </addon>
 
-<addon id="script.module.ouya-controller-pairing" name="Controller Pairing" version="1.1.1"  provider-name="Eldon McGuinness">
+<addon id="script.module.ouya-controller-pairing" name="Controller Pairing" version="1.1.2"  provider-name="Eldon McGuinness">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
@@ -85,7 +85,7 @@ Original: https://github.com/nuskunetworks</description>
 
 <addon id="script.module.ouya-nostalgia-launcher"
   name="Nostalgia"
-  version="1.0.0"
+  version="1.0.1"
   provider-name="Eldon McGuinness">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
