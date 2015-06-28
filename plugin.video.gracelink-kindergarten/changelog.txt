@@ -1,0 +1,5 @@
+1.0.1
+- Updated to fix recent feed changes
+
+1.0.0
+- Initial Release

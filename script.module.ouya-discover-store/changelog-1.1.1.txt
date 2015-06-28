@@ -1,5 +1,5 @@
 1.1.1
--Updated Icon
+- Updated Icon
 
 1.1.0
 - Updated URI to go with the newest firmware (Nov. 6 2014)

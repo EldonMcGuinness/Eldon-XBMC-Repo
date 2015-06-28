@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<addon id="plugin.video.gracelink-kindergarten"
+  name="Gracelink Kindergarten"
+  version="1.0.1"
+  provider-name="Eldon McGuinness">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">Gracelink Kindergarten</summary>
+    <description lang="en">This add-on gives you access to Gracelink's RSS list of video and audio media files.</description>
+  </extension>
+</addon>
+
 <addon id="repository.eldon-xbmc-repo" name="Eldon's XBMC OUYA Addons" version="1.0.1" provider-name="Eldon McGuinness">
 
 	<!-- Dev Branch -->
@@ -17,7 +34,7 @@
 		<checksum>https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/stable/addons.xml.md5</checksum>
 		<datadir zip="true">https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/stable</datadir>
 	</extension>
-	 -->
+	-->
 
 	<extension point="xbmc.addon.metadata">
 		<platform>all</platform>
@@ -44,7 +61,7 @@
   </extension>
 </addon>
 
-<addon id="script.module.ouya-discover-store" name="Discover Store" version="1.1.0"  provider-name="Eldon McGuinness">
+<addon id="script.module.ouya-discover-store" name="Discover Store" version="1.1.1"  provider-name="Eldon McGuinness">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
@@ -98,6 +115,25 @@ Original: https://github.com/nuskunetworks</description>
     <summary lang="en">Nostalgia
     </summary>
     <description lang="en">This add-on launches the Nostalgia game manager.
+	</description>
+  </extension>
+</addon>
+
+<addon id="script.module.ouya-readingrainbow-launcher"
+  name="Reading Rainbow"
+  version="1.0.0"
+  provider-name="Eldon McGuinness">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.script" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">Reading Rainbow
+    </summary>
+    <description lang="en">This add-on launches the Reading Rainbow app.
 	</description>
   </extension>
 </addon>
