@@ -1,3 +1,13 @@
+1.0.4
+- Added Primary Year D Quarter 3 link
+
+1.0.3
+- Added Primary school classes
+- Renamed plugin
+
+1.0.2
+- Moved to Youtube as video source
+
 1.0.1
 - Updated to fix recent feed changes
 
