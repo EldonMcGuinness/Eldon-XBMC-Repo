@@ -10,8 +10,7 @@
 	</extension>
 	-->
 	<!-- Stable Branch -->
-	<extension point="xbmc.addon.repository"
-			   name="Eldon's XBMC OUYA Addons">
+	<extension point="xbmc.addon.repository" name="Eldon's XBMC OUYA Addons">
 		<info compressed="false">https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/stable/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/stable/addons.xml.md5</checksum>
 		<datadir zip="true">https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/stable</datadir>
