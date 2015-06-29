@@ -14,21 +14,12 @@
   </extension>
 </addon>
 
-<addon id="repository.eldon-xbmc-repo" name="Eldon's XBMC OUYA Addons" version="1.0.1" provider-name="Eldon McGuinness">
+<addon id="repository.eldon-xbmc-repo" name="Eldon's XBMC OUYA Addons" version="1.0.2" provider-name="Eldon McGuinness">
 
-	<!-- Dev Branch
-	<extension point="xbmc.addon.repository"
-			   name="Eldon's XBMC OUYA Addons">
+	<extension point="xbmc.addon.repository" name="Eldon's XBMC OUYA Addons">
 		<info compressed="false">https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/master/addons.xml.md5</checksum>
 		<datadir zip="true">https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/master</datadir>
-	</extension>
-	-->
-	<!-- Stable Branch -->
-	<extension point="xbmc.addon.repository" name="Eldon's XBMC OUYA Addons">
-		<info compressed="false">https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/stable/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/stable/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/EldonMcGuinness/Eldon-XBMC-Repo/stable</datadir>
 	</extension>
 
 	<extension point="xbmc.addon.metadata">
