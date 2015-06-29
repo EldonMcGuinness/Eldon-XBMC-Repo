@@ -1,3 +1,6 @@
+1.0.5
+- Normailez episode names
+
 1.0.4
 - Added Primary Year D Quarter 3 link
 
