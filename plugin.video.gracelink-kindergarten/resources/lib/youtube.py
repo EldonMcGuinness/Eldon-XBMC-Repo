@@ -12,7 +12,7 @@ class playlistBuilder:
         self.populateItems()
 
     def populateItems(self):
-        print('Fetching URL [{0}]'.format(self.url))
+        #print('Fetching URL [{0}]'.format(self.url))
         playlist = json.loads(urllib2.urlopen(self.url).read().decode('utf8'))
         for item in playlist['items']:
             self.items.append({
@@ -29,15 +29,23 @@ class videoFinder:
     parameters = None
 
     def __init__(self, videoId):
+        self.videos = []
+        self.parameters = None
         self.videoId = videoId
         self.getPage(videoId)
 
     def getPage(self, videoId):
-        print 'Getting Page: {0}'.format(videoId)
-        raw = urllib2.urlopen(self.baseUrl+videoId).read()
+        #print 'Getting Page: {0}'.format(videoId)
+        #print 'URL: {0}'.format(self.baseUrl+videoId)
+        request = urllib2.Request(self.baseUrl+videoId)
+        request.add_header('Prama','no-cache')
+        request.add_header('User-Agent', 'Mozilla/5.0')
+        result = urllib2.build_opener().open(request)
+        raw = result.read()
         self.parameters = self.videoInfoDecode(raw)
+        img = 'http://i.ytimg.com/vi/{0}/mqdefault.jpg'.format(videoId)
         for video in self.parameters['url_encoded_fmt_stream_map']:
-            self.videos.append({'quality':video['quality'],'url':video['url']})
+            self.videos.append({'quality':video['quality'],'url':video['url'],'img':img})
 
     def __urlDecode(self, p):
         return urllib2.unquote(p).decode('utf8')
@@ -85,7 +93,7 @@ class videoFinder:
         return currentBest
 
 
-if (__name__ == "__main__"):
+#if (__name__ == "__main__"):
     '''
     print('Addon Started')
     loader = videoFinder('JOPmoY9Ec18');

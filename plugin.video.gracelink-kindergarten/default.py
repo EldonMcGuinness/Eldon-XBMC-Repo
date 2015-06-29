@@ -13,7 +13,7 @@ sys.path.append(os.path.join(current_dir, 'resources', 'lib'))
 
 import youtube
 
-addon = xbmcaddon.Addon(id='plugin.video.gracelink-kindergarten')
+addon = xbmcaddon.Addon('plugin.video.gracelink-kindergarten')
 
 # Addon Constants
 __addon__	  = xbmcaddon.Addon()
@@ -30,7 +30,7 @@ args = urlparse.parse_qs(sys.argv[2][1:])
 
 print('Args \n\n{0}\n\n'.format(str(args)))
 
-xbmcplugin.setContent(addon_handle, 'movies')
+xbmcplugin.setContent(addon_handle, 'episodes')
 
 playlists =	[
 	{	'title':'Kindergarten Class',
@@ -62,7 +62,8 @@ playlists =	[
 ]
 
 # Default icon for directories
-icon = 'icon.png'
+icon = addon.getAddonInfo('icon')
+fanart = addon.getAddonInfo('fanart')
 
 # The current mode of the view
 # None shows the main folders
@@ -96,25 +97,31 @@ if (__name__ == "__main__"):
 		for item in playlists:
 			print('Added Folder [{0}|{1}]'.format(item['title'],index))
 			url = __buildUrl({'mode':'folder','foldername':item['title'],'playlistId':index})
-			li = xbmcgui.ListItem(item['title'], iconImage=icon)
+			li = xbmcgui.ListItem(label=item['title'], iconImage=icon, thumbnailImage=icon)
 			xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
 			index+=1
 	elif mode == 'folder':
 		for item in playlists[int(playlistId)]['lists']:
 			print('Added Folder [{0}]'.format(item['id']))
 			url = __buildUrl({'mode':'section','foldername':item['title'],'playlistId':item['id']})
-			li = xbmcgui.ListItem(item['title'], iconImage=icon)
+			li = xbmcgui.ListItem(label=item['title'], iconImage=icon, thumbnailImage=icon)
 			xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
 	else:
 		print('Fetching playlist: [{0}]'.format(playlistId))
 		playlist = youtube.playlistBuilder(playlistId)
 		for item in playlist.items:
-			video = youtube.videoFinder(item['videoId'])
-			li = xbmcgui.ListItem(cleanTitle(item['title']), item['img'])
+			video = youtube.videoFinder(item['videoId']).getBestQuality()
+			print 'Thumbnail [{0}]'.format(video['img'])
+			li = xbmcgui.ListItem(
+				label=cleanTitle(item['title']),
+				thumbnailImage=video['img'],
+				iconImage=video['img']
+			)
 			xbmcplugin.addDirectoryItem(
 				handle=addon_handle, 
-				url=video.getBestQuality()['url'],
+				url=video['url'],
 				listitem=li
-				)
+			)
+			video = None
 
 	xbmcplugin.endOfDirectory(addon_handle)

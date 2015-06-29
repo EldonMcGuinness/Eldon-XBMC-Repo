@@ -1,5 +1,8 @@
+1.0.6
+- Added Thumbnails
+
 1.0.5
-- Normailez episode names
+- Normalized episode names
 
 1.0.4
 - Added Primary Year D Quarter 3 link
