@@ -3,6 +3,7 @@
 
 import os, sys, xbmcgui, xbmcplugin, xbmcaddon
 import urllib, urllib2, urlparse, re
+import SimpleDownloader as downloader
 
 # Add our resources/lib to the python path
 try:
@@ -31,6 +32,10 @@ args = urlparse.parse_qs(sys.argv[2][1:])
 print('Args \n\n{0}\n\n'.format(str(args)))
 
 xbmcplugin.setContent(addon_handle, 'episodes')
+
+# Setup the downloader
+downloader = downloader.SimpleDownloader()
+
 
 playlists =	[
 	{	'title':'Kindergarten Class',
@@ -70,16 +75,24 @@ fanart = addon.getAddonInfo('fanart')
 # Folder shows the contents of a feed
 mode = args.get('mode', None)
 playlistId = args.get('playlistId', None)
+downloadUrl = args.get('downloadUrl', None)
+downloadTitle = args.get('downloadTitle', None)
 
 # In case we get a list, strip it
 if type(playlistId) is list:
 	playlistId = playlistId[0] 
 
+if type(downloadUrl) is list:
+	downloadUrl = downloadUrl[0] 
+
+if type(downloadTitle) is list:
+	downloadTitle = downloadTitle[0] 
+
 if type(mode) is list:
 	mode = mode[0] 
 
 
-def __buildUrl(query):
+def __urlEncode(query):
 	return base_url + '?' + urllib.urlencode(query)
 
 def cleanTitle(title):
@@ -87,41 +100,68 @@ def cleanTitle(title):
 	title = re.sub(ur'.*L(\d+)\s?\:?\s?(.+)$',ur'Lesson \1: \2',title)
 	return title
 
+def __urlDecode(query):
+    return urllib2.unquote(query).decode('utf8')
+
 if (__name__ == "__main__"):
 	print('Addon Started')
 
 	#Create the base folders for Primary and Kindergarten
 
-	if mode is None:
-		index = 0
-		for item in playlists:
-			print('Added Folder [{0}|{1}]'.format(item['title'],index))
-			url = __buildUrl({'mode':'folder','foldername':item['title'],'playlistId':index})
-			li = xbmcgui.ListItem(label=item['title'], iconImage=icon, thumbnailImage=icon)
-			xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
-			index+=1
-	elif mode == 'folder':
-		for item in playlists[int(playlistId)]['lists']:
-			print('Added Folder [{0}]'.format(item['id']))
-			url = __buildUrl({'mode':'section','foldername':item['title'],'playlistId':item['id']})
-			li = xbmcgui.ListItem(label=item['title'], iconImage=icon, thumbnailImage=icon)
-			xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
-	else:
-		print('Fetching playlist: [{0}]'.format(playlistId))
-		playlist = youtube.playlistBuilder(playlistId)
-		for item in playlist.items:
-			video = youtube.videoFinder(item['videoId']).getBestQuality()
-			print 'Thumbnail [{0}]'.format(video['img'])
-			li = xbmcgui.ListItem(
-				label=cleanTitle(item['title']),
-				thumbnailImage=video['img'],
-				iconImage=video['img']
-			)
-			xbmcplugin.addDirectoryItem(
-				handle=addon_handle, 
-				url=video['url'],
-				listitem=li
-			)
-			video = None
+	if mode == 'downloadVideo':
 
-	xbmcplugin.endOfDirectory(addon_handle)
+		# Ask where to save the file
+		downloadLocationDialog = xbmcgui.Dialog()
+		downloadLocation = downloadLocationDialog.browse(3, 'Download Location', 'files')
+
+		params = {
+					'url':__urlDecode(downloadUrl),
+					'download_path':downloadLocation,
+					'Title':downloadTitle
+				}
+
+		print 'Download Parameters: %s' % params
+		print 'Download Filename: %s.mp4' % downloadTitle
+		downloader.download('%s.mp4' % downloadTitle, params)
+	else:
+		if mode is None:
+			index = 0
+			for item in playlists:
+				print('Added Folder [{0}|{1}]'.format(item['title'],index))
+				url = __urlEncode({'mode':'folder','foldername':item['title'],'playlistId':index})
+				li = xbmcgui.ListItem(label=item['title'], iconImage=icon, thumbnailImage=icon)
+				xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
+				index+=1
+		elif mode == 'folder':
+			for item in playlists[int(playlistId)]['lists']:
+				print('Added Folder [{0}]'.format(item['id']))
+				url = __urlEncode({'mode':'section','foldername':item['title'],'playlistId':item['id']})
+				li = xbmcgui.ListItem(label=item['title'], iconImage=icon, thumbnailImage=icon)
+				xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
+		elif mode == 'section':
+			print('Fetching playlist: [{0}]'.format(playlistId))
+			playlist = youtube.playlistBuilder(playlistId)
+			for item in playlist.items:
+				video = youtube.videoFinder(item['videoId']).getBestQuality()
+				print 'Thumbnail [{0}]'.format(video['img'])
+				li = xbmcgui.ListItem(
+					label=cleanTitle(item['title']),
+					thumbnailImage=video['img'],
+					iconImage=video['img']
+				)
+				li.addContextMenuItems([
+					(
+						'Download %s' % cleanTitle(item['title']),
+						'XBMC.RunPlugin(%s)' % __urlEncode(
+							{'mode':'downloadVideo','downloadUrl':video['url'],'downloadTitle':cleanTitle(item['title'])}
+						)
+					)
+				])
+				xbmcplugin.addDirectoryItem(
+					handle=addon_handle, 
+					url=video['url'],
+					listitem=li
+				)
+				video = None
+
+		xbmcplugin.endOfDirectory(addon_handle)

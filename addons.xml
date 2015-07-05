@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.gracelink-kindergarten" name="Gracelink" version="1.0.6" provider-name="Eldon McGuinness">
+<addon id="plugin.video.gracelink-kindergarten" name="Gracelink" version="1.0.7" provider-name="Eldon McGuinness">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.simple.downloader" version="1.9.5"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>video</provides>
